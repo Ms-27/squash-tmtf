@@ -1,0 +1,16 @@
+---
+version: '3.7'
+services:
+  squashtm:
+    image: ?
+    ports:
+      - 8090:8080/tcp
+    links:
+      - <postgre container name>
+    environment: 
+      - ?
+
+  squashtf:
+    image: ?
+    ports:
+      - 8095:8080/tcp #?
