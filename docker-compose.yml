@@ -1,16 +1,30 @@
 ---
 version: '3.7'
 services:
-  squashtm:
-    image: ?
+  squashtm: 
+    image: tm-link
     ports:
-      - 8090:8080/tcp
+      - 8081:8080/tcp
     links:
-      - <postgre container name>
-    environment: 
-      - ?
+      - squash-tm-pg:postgres
+    environment:
+      - POSTGRES_ENV_POSTGRES_USER=${DB_USER}
+      - POSTGRES_ENV_POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_ENV_POSTGRES_DB=${DB_DATABASE}
 
   squashtf:
-    image: ?
+    image: squashtest/squash-tf-execution-server
     ports:
-      - 8095:8080/tcp #?
+      - 8090:8080/tcp 
+
+  squash-tm-pg:
+    image: postgres:9.6.12
+    volumes:
+      - squash-tm-db-pg:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+
+volumes:
+  squash-tm-db-pg:

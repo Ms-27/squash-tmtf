@@ -1,1 +1,2 @@
-FROM ?
+FROM squashtest/squash-tf
+
